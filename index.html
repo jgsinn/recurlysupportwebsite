@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html>
+
+    <title>Recurly Test Site</title>
+    <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+            <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+                <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato">
+                    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+                        <style>
+                            .recurlyimage {width:50%;}
+                            body {font-family: "Lato", sans-serif}
+                            .mySlides {display: none}
+                            </style>
+                        <body>
+                            
+                            <!-- Navbar -->
+                            <div class="w3-top">
+                                <div class="w3-bar w3-black w3-card-2">
+                                    <a class="w3-bar-item w3-button w3-padding-large w3-hide-medium w3-hide-large w3-right" href="javascript:void(0)" onclick="myFunction()" title="Toggle Navigation Menu"><i class="fa fa-bars"></i></a>
+                                    <a href="#" class="w3-bar-item w3-button w3-padding-large">Home</a>
+                                    <a href="#band" class="w3-bar-item w3-button w3-padding-large w3-hide-small">Recurly.js</a>
+                                    <a href="#tour" class="w3-bar-item w3-button w3-padding-large w3-hide-small">API</a>
+                                    <a href="#contact" class="w3-bar-item w3-button w3-padding-large w3-hide-small">Webhooks</a>
+                                    <div class="w3-dropdown-hover w3-hide-small">
+                                        <button class="w3-padding-large w3-button" title="More">MORE <i class="fa fa-caret-down"></i></button>
+                                        <div class="w3-dropdown-content w3-bar-block w3-card-4">
+                                            <a href="https://docs.recurly.com/docs" class="w3-bar-item w3-button">Recurly Docs</a>
+                                            <a href="https://dev.recurly.com/docs" class="w3-bar-item w3-button">Development Docs</a>
+                                            <a href="#" class="w3-bar-item w3-button">Splunk</a>
+                                        </div>
+                                    </div>
+                                    <a href="javascript:void(0)" class="w3-padding-large w3-hover-red w3-hide-small w3-right"><i class="fa fa-search"></i></a>
+                                </div>
+                            </div>
+                            
+                            <!-- Navbar on small screens -->
+                            <div id="navDemo" class="w3-bar-block w3-black w3-hide w3-hide-large w3-hide-medium w3-top" style="margin-top:46px">
+                                <a href="#band" class="w3-bar-item w3-button w3-padding-large">BAND</a>
+                                <a href="#tour" class="w3-bar-item w3-button w3-padding-large">TOUR</a>
+                                <a href="#contact" class="w3-bar-item w3-button w3-padding-large">CONTACT</a>
+                                <a href="#" class="w3-bar-item w3-button w3-padding-large">MERCH</a>
+                            </div>
+                            
+                            <!-- Page content -->
+                            <div class="w3-content" style="max-width:2000px;margin-top:46px">
+                                
+                                <!-- API and SubDomain Popup -->
+                                
+                                
+                                <!-- The Band Section -->
+                                <div class="w3-container w3-content w3-center w3-padding-64" style="max-width:800px" id="band">
+                                    <h2 class="w3-wide">Welcome to the Recurly Test Site</h2>
+                                    <img class="recurlyimage" src="https://recurly.com/img2/logo-purple.svg">
+                                    <p class="w3-opacity"><i>We love subscriptions</i></p>
+                                    <p class="w3-justify"> </p>
+                                    
+                                </div>
+                                
+                                <!-- The Tour Section -->
+                                <div class="w3-black" id="tour">
+                                    <div class="w3-container w3-content w3-padding-64" style="max-width:800px">
+                                        <h2 class="w3-wide w3-center">This site is specifically designed to help you test Recurly.js, the Recurly API, and our Webhooks.</h2>
+                                        <p class="w3-opacity w3-center"><i></i></p><br>
+                                        
+                                        
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <!-- Ticket Modal -->
+                                <div id="ticketModal" class="w3-modal">
+                                    <div class="w3-modal-content w3-animate-top w3-card-4">
+                                        <header class="w3-container w3-teal w3-center w3-padding-32">
+                                            <span onclick="document.getElementById('ticketModal').style.display='none'"
+                                                class="w3-button w3-teal w3-xlarge w3-display-topright">×</span>
+                                            <h2 class="w3-wide"><i class="fa fa-suitcase w3-margin-right"></i>Tickets</h2>
+                                        </header>
+                                        <div class="w3-container">
+                                            <p><label><i class="fa fa-shopping-cart"></i> Tickets, $15 per person</label></p>
+                                            <input class="w3-input w3-border" type="text" placeholder="How many?">
+                                                <p><label><i class="fa fa-user"></i> Send To</label></p>
+                                                <input class="w3-input w3-border" type="text" placeholder="Enter email">
+                                                    <button class="w3-button w3-block w3-teal w3-padding-16 w3-section w3-right">PAY <i class="fa fa-check"></i></button>
+                                                    <button class="w3-button w3-red w3-section" onclick="document.getElementById('ticketModal').style.display='none'">Close <i class="fa fa-remove"></i></button>
+                                                    <p class="w3-right">Need <a href="#" class="w3-text-blue">help?</a></p>
+                                                    </div>
+                                    </div>
+                                </div>
+                                
+                                <!-- The Contact Section -->
+                                <div class="w3-container w3-content w3-padding-64" style="max-width:800px" id="contact">
+                                    <h2 class="w3-wide w3-center">CONTACT</h2>
+                                    <p class="w3-opacity w3-center"><i>Need some help? Let us know!</i></p>
+                                    <div class="w3-row w3-padding-32">
+                                        <div class="w3-col m6 w3-large w3-margin-bottom">
+                                            <i class="fa fa-map-marker" style="width:30px"></i> San Fransisco, CA<br>
+                                            
+                                            <i class="fa fa-envelope" style="width:30px"> </i> Email: support@recurly.com<br>
+                                            
+                                        </div>
+                                        <div class="w3-col m6">
+                                            <form action="/action_page.php" target="_blank">
+                                                <div class="w3-row-padding" style="margin:0 -16px 8px -16px">
+                                                    <div class="w3-half">
+                                                        <input class="w3-input w3-border" type="text" placeholder="Name" required name="Name">
+                                                            </div>
+                                                    <div class="w3-half">
+                                                        <input class="w3-input w3-border" type="text" placeholder="Email" required name="Email">
+                                                            </div>
+                                                </div>
+                                                <input class="w3-input w3-border" type="text" placeholder="Message" required name="Message">
+                                                    <button class="w3-button w3-black w3-section w3-right" type="submit">SEND</button>
+                                                    </form>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <!-- End Page Content -->
+                            </div>
+                            
+                            
+                            <!-- Footer -->
+                            <footer class="w3-container w3-padding-64 w3-center w3-opacity w3-light-grey w3-xlarge">
+                                <i class="fa fa-facebook-official w3-hover-opacity"></i>
+                                <i class="fa fa-instagram w3-hover-opacity"></i>
+                                <i class="fa fa-snapchat w3-hover-opacity"></i>
+                                <i class="fa fa-pinterest-p w3-hover-opacity"></i>
+                                <i class="fa fa-twitter w3-hover-opacity"></i>
+                                <i class="fa fa-linkedin w3-hover-opacity"></i>
+                                <p class="w3-medium">Designed & Built by <a href="https://www.justinsinn.com" target="_blank">Justin Sinn</a></p>
+                            </footer>
+                            
+                            <script src="https://js.recurly.com/v4/recurly.js"></script>
+                            <script type="text/javascript" src="/recurly/js/apprise.min.js"></script>
+                            
+                            <link rel="stylesheet" href="/recurly/css/apprise.min.css" type="text/css" />
+                            <script type="text/javascript" src="http://code.jquery.com/jquery-1.4.4.min.js"></script>
+
+                            <script>
+                            //Credential checker
+                            var publicToken_input = "";
+                            var subDomain_input = "1";
+
+                            checkCredentials();
+
+                            function checkCredentials(){
+
+                                if (publicToken_input.length == 0 || publicToken_input == false){
+                                    
+                                    publicToken();
+                                    
+
+                                }
+
+                                else if (subDomain_input == ""){
+                                    subDomain_input = apprise('Missing Your Subdomain! Please enter it below:', {'animate': true, 'input' : true});
+                                }
+    
+                            }
+
+                            function publicToken(){
+                                  while (publicToken_input.length == 0 || publicToken_input == false) {
+                                    publicToken_input = apprise('Missing Your API Key! Please enter it below:', { 'animate':true, 'input' : true}, function(r) {
+                                        if(r)
+                                            { 
+
+                                            publicToken_input = r;
+
+                                                // user clicked 'OK'
+        
+                                            }
+                                        else
+                                            { 
+
+                                                // user clicked 'No'
+                                            apprise('Please enter your public API Token')
+                                            publicToken();
+
+                                            }}
+                                            );
+                                }
+                           }
+
+                            function subDomain(){
+                                while (subDomain_input.length == 0 || subDomain_input == false) {
+                                    subDomain_input = apprise('Missing Your Subdomain! Please enter it below:', { 'animate':true, 'input' : true}, function(r) {
+                                        if(r)
+                                            { 
+
+                                            subDomain_input = r;
+
+                                                // user clicked 'OK'
+        
+                                            }
+                                        else
+                                            { 
+
+                                                // user clicked 'No'
+                                            apprise('Please enter your subdomain Token')
+                                            publicToken();
+
+                                            }}
+                                            );
+                                }
+                            }
+                            // Used to toggle the menu on small screens when clicking on the menu button
+                            function myFunction() {
+                                var x = document.getElementById("navDemo");
+                                if (x.className.indexOf("w3-show") == -1) {
+                                    x.className += " w3-show";
+                                } else {
+                                    x.className = x.className.replace(" w3-show", "");
+                                }
+                            }
+                            
+                            // When the user clicks anywhere outside of the modal, close it
+                            var modal = document.getElementById('ticketModal');
+                            window.onclick = function(event) {
+                                if (event.target == modal) {
+                                    modal.style.display = "none";
+                                }
+                            }
+
+                            </script>
+                            
+                        </body>
+</html>
+

@@ -1,0 +1,566 @@
+<!DOCTYPE html>
+<html>
+
+<title>Recurly Test Site</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/6.11.2/sweetalert2.all.min.js"></script>
+<script src="/recurly/js/runner.js"></script>
+
+<style>
+.recurlyimage {width:50%;}
+
+body {font-family: "Lato", sans-serif}
+
+.mySlides {display: none}
+
+/*form styles*/
+#msform {
+    display: none;
+    width: 400px;
+    margin: 50px auto;
+    //bottom: 200px;
+    margin-top: -15%;
+    margin-bottom: 100%;
+    text-align: center;
+    position: relative;
+}
+#msform fieldset {
+    background: white;
+    border: 0 none;
+    border-radius: 3px;
+    box-shadow: 0 0 15px 1px rgba(0, 0, 0, 0.4);
+    padding: 20px 30px;
+    
+    box-sizing: border-box;
+    width: 80%;
+    margin: 0 10%;
+    
+    /*stacking fieldsets above each other*/
+    position: absolute;
+}
+
+/*Hide all except first fieldset*/
+#msform fieldset:not(:first-of-type) {
+    display: none;
+}
+
+/*inputs*/
+#msform input, #msform textarea {
+    padding: 15px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    margin-bottom: 10px;
+    width: 100%;
+    box-sizing: border-box;
+    font-family: montserrat;
+    color: #71347E;
+    font-size: 13px;
+}
+
+#msform select, #msform textarea {
+    padding: 15px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    margin-bottom: 10px;
+    width: 100%;
+    box-sizing: border-box;
+    font-family: montserrat;
+    color: #71347E;
+    font-size: 13px;
+}
+
+/*buttons*/
+#msform .action-button {
+    width: 100px;
+    background: #71347E;
+    font-weight: bold;
+    color: white;
+    border: 0 none;
+    border-radius: 1px;
+    cursor: pointer;
+    padding: 10px 5px;
+    margin: 10px 5px;
+}
+#msform .action-button:hover, #msform .action-button:focus {
+    box-shadow: 0 0 0 2px white, 0 0 0 3px #71347E;
+}
+
+/*headings*/
+.fs-title {
+    font-size: 15px;
+    text-transform: uppercase;
+    color: #2C3E50;
+    margin-bottom: 10px;
+}
+.fs-subtitle {
+    font-weight: normal;
+    font-size: 13px;
+    color: #666;
+    margin-bottom: 20px;
+}
+
+/*progressbar*/
+#progressbar {
+    margin-bottom: 30px;
+    overflow: hidden;
+    /*CSS counters to number the steps*/
+    counter-reset: step;
+}
+
+#progressbar li {
+    list-style-type: none;
+    color: white;
+    text-transform: uppercase;
+    font-size: 9px;
+    width: 33.33%;
+    float: left;
+    position: relative;
+}
+#progressbar li:before {
+    content: counter(step);
+    counter-increment: step;
+    width: 20px;
+    line-height: 20px;
+    display: block;
+    font-size: 16px;
+    color: #333;
+    background: white;
+    border-radius: 3px;
+    margin: 0 auto 5px auto;
+}
+
+/*progressbar connectors*/
+#progressbar li:after {
+    content: '';
+    width: 100%;
+    height: 2px;
+    background: white;
+    position: absolute;
+    left: -50%;
+    top: 9px;
+    z-index: -1; /*put it behind the numbers*/
+}
+
+#progressbar li:first-child:after {
+    /*connector not needed before the first step*/
+    content: none; 
+}
+
+/*marking active/completed steps green*/
+/*The number of the step and the connector before it = green*/
+#progressbar li.active:before,  #progressbar li.active:after{
+    background: #71347E;
+    color: white;
+}
+
+.mainbutton {
+  position: relative;
+  display: inline-block;
+  padding: 1.2em 2em;
+  text-decoration: none;
+  text-align: center;
+  cursor: pointer;
+  user-select: none;
+  color: white;
+  margin-left: 2%;
+  left: 18%;
+}
+.mainbutton::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  background: linear-gradient(135deg, #8e44ad, #71347E);
+  border-radius: 4px;
+  transition: box-shadow .5s ease, transform .2s ease;
+  will-change: transform;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  transform: translateY(var(--ty, 0)) rotateX(var(--rx, 0)) rotateY(var(--ry, 0)) translateZ(var(--tz, -12px));
+}
+.mainbutton:hover::before {
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+.mainbutton::after {
+  position: relative;
+  display: inline-block;
+  content: attr(data-title);
+  transition: transform .2s ease;
+  font-weight: bold;
+  letter-spacing: .01em;
+  will-change: transform;
+  transform: translateY(var(--ty, 0)) rotateX(var(--rx, 0)) rotateY(var(--ry, 0));
+}
+
+#tour {
+    position: relative;
+    bottom: 20%;
+}
+#tour h3{
+    //display: flex;
+    //align-items: center;
+    //justify-content: center;
+    font-size: 20px;
+    text-align: center;}
+
+</style>
+
+
+<body>
+                            
+<!-- Navbar -->
+<div class="w3-top">
+    <div class="w3-bar w3-black w3-card-2">
+        <a class="w3-bar-item w3-button w3-padding-large w3-hide-medium w3-hide-large w3-right" href="javascript:void(0)" onclick="myFunction()" title="Toggle Navigation Menu"><i class="fa fa-bars"></i></a>
+        <a href="#" class="w3-bar-item w3-button w3-padding-large">Home</a>
+        <a href="#band" class="w3-bar-item w3-button w3-padding-large w3-hide-small">Recurly.js</a>
+        <a href="#tour" class="w3-bar-item w3-button w3-padding-large w3-hide-small">API</a>
+        <a href="#contact" class="w3-bar-item w3-button w3-padding-large w3-hide-small">Webhooks</a>
+    <div class="w3-dropdown-hover w3-hide-small">
+        <button class="w3-padding-large w3-button" title="More">MORE <i class="fa fa-caret-down"></i></button>
+    <div class="w3-dropdown-content w3-bar-block w3-card-4">
+        <a href="https://docs.recurly.com/docs" class="w3-bar-item w3-button">Recurly Docs</a>
+        <a href="https://dev.recurly.com/docs" class="w3-bar-item w3-button">Development Docs</a>
+        <a href="#" class="w3-bar-item w3-button">Splunk</a>
+    </div>
+    </div>
+        <a href="javascript:void(0)" class="w3-padding-large w3-hover-red w3-hide-small w3-right"><i class="fa fa-search"></i></a>
+    </div>
+</div>
+                            
+
+<!-- Navbar on small screens -->
+<div id="navDemo" class="w3-bar-block w3-black w3-hide w3-hide-large w3-hide-medium w3-top" style="margin-top:46px">
+            <a href="#band" class="w3-bar-item w3-button w3-padding-large">BAND</a>
+            <a href="#tour" class="w3-bar-item w3-button w3-padding-large">TOUR</a>
+            <a href="#contact" class="w3-bar-item w3-button w3-padding-large">CONTACT</a>
+            <a href="#" class="w3-bar-item w3-button w3-padding-large">MERCH</a>
+</div>
+                            
+<!-- Page content -->
+<div class="w3-content" style="max-width:2000px;margin-top:46px">
+                                
+                                
+<!-- Top Section -->
+<div class="w3-container w3-content w3-center w3-padding-64" style="max-width:800px" id="band">
+            <h2 class="w3-wide">Welcome to the Recurly Test Site</h2>
+                
+                <img class="recurlyimage" src="https://recurly.com/img2/logo-purple.svg">
+                
+                <p class="w3-opacity"><i>We love subscriptions</i></p>
+                <p class="w3-justify"> </p>
+                                    
+</div>
+                                
+
+
+
+<!-- The Tour Section -->
+<div class="" id="tour">
+
+<a href="#" class="fancy-button bg-gradient1"></a>
+                                    <div class="w3-container w3-content w3-padding-64" style="max-width:800px">
+<div class="APIbuttons">
+
+                                        <h3 class="w3-wide">Select the type of API call:</h3>
+<a class="mainbutton" id="GETbutton" href="#" data-title="GET"></a>
+
+<a class="mainbutton" id="POSTbutton" href="#" data-title="POST"></a>
+
+<a class="mainbutton" id="PUTbutton" href="#" data-title="PUT"></a>
+
+<a class="mainbutton" id="DELbutton" href="#" data-title="DELETE"></a>
+</div>
+
+                                        <!-- multistep form -->
+<form id="msform">
+    <!-- progressbar -->
+    <ul id="progressbar">
+        <li class="active">Account Setup</li>
+        <li>Social Profiles</li>
+        <li>Personal Details</li>
+    </ul>
+    <!-- fieldsets -->
+    <fieldset>
+        <h2 class="fs-title">Select the API category and endpoint below:</h2>
+        <h3 class="fs-subtitle"></h3>
+        <select name="apicategories" id="apicategories" onChange="changecat(this.value);">
+            <option value=""></option>
+            <option value="accounts">Accounts</option>
+            <option value="shipping_addresses">Shipping Addresses</option>
+            <option value="fiat">Account Acquisition</option>
+            <option value="audi">Adjustments</option>
+            <option value="audi">Adjustments</option>
+            <option value="audi">Adjustments</option>
+            <option value="audi">Adjustments</option>
+            <option value="audi">Adjustments</option>
+            <option value="audi">Adjustments</option>
+            <option value="audi">Adjustments</option>
+            <option value="audi">Adjustments</option>
+            <option value="audi">Adjustments</option>
+            <option value="audi">Adjustments</option>
+            <option value="audi">Adjustments</option>
+
+        </select>
+        <select name="apisubcategories" id="apisubcategories">
+            <option value="volvo"></option>
+        </select>
+        
+        <input type="button" name="next" class="next action-button" value="Next" />
+    </fieldset>
+    <fieldset>
+        <h2 class="fs-title">Social Profiles</h2>
+        <h3 class="fs-subtitle">Your presence on the social network</h3>
+        <input type="text" name="twitter" placeholder="Twitter" />
+        <input type="text" name="facebook" placeholder="Facebook" />
+        <input type="text" name="gplus" placeholder="Google Plus" />
+        <input type="button" name="previous" class="previous action-button" value="Previous" />
+        <input type="button" name="next" class="next action-button" value="Next" />
+    </fieldset>
+    <fieldset>
+        <h2 class="fs-title">Personal Details</h2>
+        <h3 class="fs-subtitle">We will never sell it</h3>
+        <input type="text" name="fname" placeholder="First Name" />
+        <input type="text" name="lname" placeholder="Last Name" />
+        <input type="text" name="phone" placeholder="Phone" />
+        <textarea name="address" placeholder="Address"></textarea>
+        <input type="button" name="previous" class="previous action-button" value="Previous" />
+        <input type="submit" name="submit" class="submit action-button" value="Submit" />
+    </fieldset>
+</form>
+
+
+<p class="w3-opacity w3-center"><i></i></p><br>
+                                        
+                                        
+</div>
+</div>
+</div>
+                                
+                        
+<!-- Footer -->
+<footer class="w3-container w3-padding-64 w3-center w3-opacity w3-light-grey w3-xlarge">
+<i class="fa fa-facebook-official w3-hover-opacity"></i>
+<i class="fa fa-instagram w3-hover-opacity"></i>
+<i class="fa fa-snapchat w3-hover-opacity"></i>
+<i class="fa fa-pinterest-p w3-hover-opacity"></i>
+<i class="fa fa-twitter w3-hover-opacity"></i>
+<i class="fa fa-linkedin w3-hover-opacity"></i>
+<p class="w3-medium">Designed & Built by <a href="https://www.justinsinn.com" target="_blank">Justin Sinn</a></p>
+</footer>
+                            
+
+                            
+                            <link rel="stylesheet" href="/recurly/css/apprise.min.css" type="text/css" />
+                            
+<!-- jQuery -->
+<script src="http://thecodeplayer.com/uploads/js/jquery-1.9.1.min.js" type="text/javascript"></script>
+<!-- jQuery easing plugin -->
+<script src="http://thecodeplayer.com/uploads/js/jquery.easing.min.js" type="text/javascript"></script>
+
+<script src="https://js.recurly.com/v4/recurly.js"></script>
+
+<script type="text/javascript" src="/recurly/js/apprise.min.js"></script>
+
+
+
+
+<script>
+checkCredentials();
+
+
+var APIselector;
+
+var categorylist = {
+    accounts: [],
+    shipping_addresses: [],
+    account_acquisition: [],
+    adjustments: [],
+    billing_info: [],
+    coupons: [],
+    coupon_redemptions: [],
+    gift_cards: [],
+    invoices: [],
+    plans: [],
+    add_ons: [],
+    measured_units: [],
+    account_acquisition: [],
+    account_acquisition: [],
+    account_acquisition: [],
+    account_acquisition: [],
+    account_acquisition: [],
+    account_acquisition: [],
+    account_acquisition: [],
+
+
+}
+
+//API page button functions
+$('#GETbutton').click(function(){
+    $('.APIbuttons').toggle();
+    $('#msform').toggle();
+    APIselector = "GET";
+    categorylist.accounts = ["Account Object", "List Accounts", "Lookup Account"];
+
+});
+
+$('#POSTbutton').click(function(){
+    $('.APIbuttons').toggle();
+    $('#msform').toggle();
+    APIselector = "POST";
+});
+
+$('#PUTbutton').click(function(){
+    $('.APIbuttons').toggle();
+    $('#msform').toggle();
+    APIselector = "PUT";
+});
+
+$('#DELETEbutton').click(function(){
+    $('.APIbuttons').toggle();
+    $('#msform').toggle();
+    APIselector = "DELETE";
+});
+
+
+
+
+ //building the forms dynamically
+var categorylist = {
+    accounts: [],
+    shipping_addresses: ["Soup", "Juice", "Water", "Others"],
+    account_acquisition: ["Soup", "Juice", "Coffee", "Tea", "Others"]
+
+}
+
+
+
+
+
+
+function changecat(value) {
+    if (value.length == 0) document.getElementById("apisubcategories").innerHTML = "<option></option>";
+    else {
+        var catOptions = "";
+        for (categoryId in categorylist[value]) {
+            catOptions += "<option>" + categorylist[value][categoryId] + "</option>";
+            }
+        document.getElementById("apisubcategories").innerHTML = catOptions;
+        }
+    }
+
+
+
+// Used to toggle the menu on small screens when clicking on the menu button
+function myFunction() {
+    var x = document.getElementById("navDemo");
+    
+    if (x.className.indexOf("w3-show") == -1) {
+            x.className += " w3-show";
+    } else {
+             x.className = x.className.replace(" w3-show", "");
+    }
+    }
+                            
+// When the user clicks anywhere outside of the modal, close it
+    var modal = document.getElementById('ticketModal');
+    
+    window.onclick = function(event) {
+    if (event.target == modal) {
+            modal.style.display = "none";
+    }
+    }
+
+
+
+//jQuery time
+var current_fs, next_fs, previous_fs; //fieldsets
+var left, opacity, scale; //fieldset properties which we will animate
+var animating; //flag to prevent quick multi-click glitches
+
+$(".next").click(function(){
+    if(animating) return false;
+    animating = true;
+    
+    current_fs = $(this).parent();
+    next_fs = $(this).parent().next();
+    
+    //activate next step on progressbar using the index of next_fs
+    $("#progressbar li").eq($("fieldset").index(next_fs)).addClass("active");
+    
+    //show the next fieldset
+    next_fs.show(); 
+    //hide the current fieldset with style
+    current_fs.animate({opacity: 0}, {
+        step: function(now, mx) {
+            //as the opacity of current_fs reduces to 0 - stored in "now"
+            //1. scale current_fs down to 80%
+            scale = 1 - (1 - now) * 0.2;
+            //2. bring next_fs from the right(50%)
+            left = (now * 50)+"%";
+            //3. increase opacity of next_fs to 1 as it moves in
+            opacity = 1 - now;
+            current_fs.css({'transform': 'scale('+scale+')'});
+            next_fs.css({'left': left, 'opacity': opacity});
+        }, 
+        duration: 800, 
+        complete: function(){
+            current_fs.hide();
+            animating = false;
+        }, 
+        //this comes from the custom easing plugin
+        easing: 'easeInOutBack'
+    });
+});
+
+$(".previous").click(function(){
+    if(animating) return false;
+    animating = true;
+    
+    current_fs = $(this).parent();
+    previous_fs = $(this).parent().prev();
+    
+    //de-activate current step on progressbar
+    $("#progressbar li").eq($("fieldset").index(current_fs)).removeClass("active");
+    
+    //show the previous fieldset
+    previous_fs.show(); 
+    //hide the current fieldset with style
+    current_fs.animate({opacity: 0}, {
+        step: function(now, mx) {
+            //as the opacity of current_fs reduces to 0 - stored in "now"
+            //1. scale previous_fs from 80% to 100%
+            scale = 0.8 + (1 - now) * 0.2;
+            //2. take current_fs to the right(50%) - from 0%
+            left = ((1-now) * 50)+"%";
+            //3. increase opacity of previous_fs to 1 as it moves in
+            opacity = 1 - now;
+            current_fs.css({'left': left});
+            previous_fs.css({'transform': 'scale('+scale+')', 'opacity': opacity});
+        }, 
+        duration: 800, 
+        complete: function(){
+            current_fs.hide();
+            animating = false;
+        }, 
+        //this comes from the custom easing plugin
+        easing: 'easeInOutBack'
+    });
+});
+
+$(".submit").click(function(){
+    return false;
+})
+
+
+</script>
+                            
+</body>
+</html>
+
